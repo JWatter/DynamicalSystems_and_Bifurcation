@@ -56,18 +56,18 @@ plt.title(r'Bifurcation diagramm, $ \dot{x} = \alpha - 2x^2 -3$')
 plt.show()
 
 
-# alpha = 1
+# alpha = -1
 X = np.linspace(-10,10,100)
 fig = plt.figure()
 gs = gridspec.GridSpec(nrows=1, ncols=2)
 
 ax1 = fig.add_subplot(gs[0,0])
-VX1 = -X**2 - 1
-ax1.plot(VX1,X)
-ax1.set_title(r'$ \dot{x} = \alpha - x^{2}$, $\alpha$ = 1')
+Y1 = -X**2 - 1
+ax1.plot(Y1,X)
+ax1.set_title(r'$ \dot{x} = \alpha - x^2$, $\alpha$ = -1')
 
 ax2 = fig.add_subplot(gs[0,1])
-VX2 = -2 * X**2 - 4
-ax2.plot(VX2,X)
-ax2.set_title(r'$ \dot{x} = \alpha - 2x^{2}-3$, $\alpha$ = 1')
+Y2 = -2 * X**2 - 4
+ax2.plot(Y2,X)
+ax2.set_title(r'$ \dot{x} = \alpha - 2x^2-3$, $\alpha$ = -1')
 plt.show()
