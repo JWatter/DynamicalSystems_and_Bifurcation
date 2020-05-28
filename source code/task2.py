@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import numpy as np
 import matplotlib.pyplot as plt
- 
+
+# return the data for ploting
 def drawDiagram(a_low, a_high, a, b, c):
     alpha_np = np.linspace(a_low, a_high, 10000)
-
     a_steady = []
     a_unsteady = []
     root_steady = []
@@ -31,7 +31,7 @@ def drawDiagram(a_low, a_high, a, b, c):
     return a_steady, a_unsteady, root_steady, root_unsteady
 
 
-# # dx = a - x^2
+# dx = a - x^2
 a_steady, a_unsteady, root_steady, root_unsteady = drawDiagram(-1, 1, -1, 0, 0)
 plt.plot(a_steady,root_steady[:,0],label = "steady state", color = 'b')
 plt.plot(a_steady,root_steady[:,1], color = 'b')
