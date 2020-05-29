@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+#define logistic map
 def logistic(r, x):
     return r * x * (1-x)
 
@@ -10,7 +11,7 @@ def logistic(r, x):
 n = 1000
 r = np.linspace(0, 4, n)
 
-#1000 iterations of the logistic map and keep the last 100 iterations for visualization
+#1000 iterations of the logistic map and keep the last 100 iterations for visualization later
 iterations = 1000
 last = 100
 
@@ -28,6 +29,6 @@ for i in range(0,iterations):
              
 plt.xlabel("r")
 plt.ylabel("x")
-plt.title("Bifurcation diagram")
-#plt.show    
+plt.title("Bifurcation diagram Logistic Map")
+plt.show    
     

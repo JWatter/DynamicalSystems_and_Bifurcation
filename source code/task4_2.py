@@ -18,51 +18,66 @@ def lorenz(t, state):
     x, y, z = state
     return sigma * (y - x), x * (rho - z) - y, x * y - beta * z
  
-
 #setting up parameters
 rho = 28.0
 sigma = 10.0
 beta = 8.0 / 3.0
 #initialize x_0 vector
-state0 = [10, 10, 10]    
+x0 = [10, 10, 10]    
 #solve lorenz attractor using solve_ivp
-sol1 = solve_ivp(lorenz, [t_start, t_end], state0, t_eval=t)
+sol1 = solve_ivp(lorenz, [t_start, t_end], x0, t_eval=t)
 #plot results in 3d plot
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.plot(sol1.y[0], sol1.y[1], sol1.y[2], 'r-')
+ax.plot(sol1.y[0], sol1.y[1], sol1.y[2], 'r-', label='x0 = '+str(x0))
 ax.set_xlabel("x")
 ax.set_ylabel("y")
 ax.set_zlabel("z")
+ax.set_title(r'$\rho=$'+str(rho) + r' $\sigma=$'+str(sigma) + r' $\beta=$'+str(round(beta,2)))
 ax.grid()
 plt.draw()
 
 #second plot with slightly perturbed initial conditions
-state0 = [10+10e-8, 10, 10]
-sol2 = solve_ivp(lorenz, [t_start, t_end], state0, t_eval=t)
-ax.plot(sol2.y[0], sol2.y[1], sol2.y[2], 'k-')
+x0 = [10+10e-8, 10, 10]
+sol2 = solve_ivp(lorenz, [t_start, t_end], x0, t_eval=t)
+ax.plot(sol2.y[0], sol2.y[1], sol2.y[2], 'k-', label='x0 = '+str(x0))
+ax.legend()
 plt.draw()
 plt.show()
 
 
 #change parameter rho and plot system again
 rho = 0.5
-state0 = [10, 10, 10]    
-#solve lorenz attractor using solve_ivp
-sol3 = solve_ivp(lorenz, [t_start, t_end], state0, t_eval=t)
-#plot results in 3d plot
+x0 = [10, 10, 10]    
+sol3 = solve_ivp(lorenz, [t_start, t_end], x0, t_eval=t)
+
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.plot(sol3.y[0], sol3.y[1], sol3.y[2], 'r-')
+ax.plot(sol3.y[0], sol3.y[1], sol3.y[2], 'r-', label='x0 = '+str(x0))
 ax.set_xlabel("x")
 ax.set_ylabel("y")
 ax.set_zlabel("z")
+ax.set_title(r'$\rho=$'+str(rho) + r' $\sigma=$'+str(sigma) + r' $\beta=$'+str(round(beta,2)))
 ax.grid()
 plt.draw() 
 
 #second plot with slightly perturbed initial conditions
-state0 = [10+10e-8, 10, 10]
-sol4 = solve_ivp(lorenz, [t_start, t_end], state0, t_eval=t)
-ax.plot(sol4.y[0], sol4.y[1], sol4.y[2], 'ko')
+x0 = [10+10e-8, 10, 10]
+sol4 = solve_ivp(lorenz, [t_start, t_end], x0, t_eval=t)
+ax.plot(sol4.y[0], sol4.y[1], sol4.y[2], 'ko', label='x0 = '+str(x0))
+ax.legend()
 plt.draw()
 plt.show()
+
+#Analysis
+def traj_dist(x1, y1, z1, x2, y2, z2):
+    """
+    calculates euclidean distance of 2 vectors in 3d (evaluated as array)
+    here it can be interpreted as the distance of our 2 trajectories
+    returns index (=timestep) where distance is initially >= 1
+    """
+    dist = np.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
+    indices, = np.where(dist >= 1)
+    return indices[0]
+
+iteration_t = traj_dist(sol1.y[0], sol1.y[1], sol1.y[2], sol2.y[0], sol2.y[1], sol2.y[2])
