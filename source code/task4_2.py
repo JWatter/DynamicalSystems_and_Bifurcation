@@ -3,19 +3,20 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
+from mpl_toolkits.mplot3d import Axes3D
 
 #initialize time
-t_start, t_end = 0, 30
-t = np.linspace(t_start, t_end, 1000)
+t_start, t_end = 0, 1000
+t = np.linspace(t_start, t_end, 30000)
 
-def lorenz(t, state):
+def lorenz(t, x0):
     """
     t: independent variable (time)
     state: initial values
     
     returns values for x, y and z according to the lorenz system
     """
-    x, y, z = state
+    x, y, z = x0
     return sigma * (y - x), x * (rho - z) - y, x * y - beta * z
  
 #setting up parameters
@@ -29,7 +30,7 @@ sol1 = solve_ivp(lorenz, [t_start, t_end], x0, t_eval=t)
 #plot results in 3d plot
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.plot(sol1.y[0], sol1.y[1], sol1.y[2], 'r-', label='x0 = '+str(x0))
+ax.plot(sol1.y[0], sol1.y[1], sol1.y[2], 'r-', linewidth=0.05, label='x0 = '+str(x0))
 ax.set_xlabel("x")
 ax.set_ylabel("y")
 ax.set_zlabel("z")
@@ -40,11 +41,10 @@ plt.draw()
 #second plot with slightly perturbed initial conditions
 x0 = [10+10e-8, 10, 10]
 sol2 = solve_ivp(lorenz, [t_start, t_end], x0, t_eval=t)
-ax.plot(sol2.y[0], sol2.y[1], sol2.y[2], 'k-', label='x0 = '+str(x0))
+ax.plot(sol2.y[0], sol2.y[1], sol2.y[2], 'k-', linewidth=0.05, label='x0 = '+str(x0))
 ax.legend()
 plt.draw()
 plt.show()
-
 
 #change parameter rho and plot system again
 rho = 0.5
@@ -73,7 +73,7 @@ plt.show()
 def traj_dist(x1, y1, z1, x2, y2, z2):
     """
     calculates euclidean distance of 2 vectors in 3d (evaluated as array)
-    here it can be interpreted as the distance of our 2 trajectories
+    here it can be interpreted as the distance of our 2 trajectories.
     returns index (=timestep) where distance is initially >= 1
     """
     dist = np.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
