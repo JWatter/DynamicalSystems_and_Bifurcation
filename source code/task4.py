@@ -62,3 +62,4 @@ bifurcationDiagram(r,x)
 plt.xlabel("r")
 plt.ylabel("x")
 plt.title("Bifurcation diagram Logistic map, r = (0,4]")   
+
