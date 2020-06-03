@@ -7,17 +7,27 @@ import matplotlib.pyplot as plt
 
 # return the data for ploting
 def drawDiagram(a_low, a_high, a, b, c):
+    """
+    Plots bifurcation diagram for given inputs.
+    Input: range of parameter alpha (a_low and a_high) 
+    function / polynomial a*x^2 + b*x + c 
+    
+    Returns arrays for alpha steady/unsteady and corresponding x values
+    in order to plot bifurcation diagram
+    """
     alpha_np = np.linspace(a_low, a_high, 10000)
     a_steady = []
     a_unsteady = []
     root_steady = []
     root_unsteady = []
 
+    #iterate over range of alphas
     for alpha in alpha_np :
         coefficients = [a, b, alpha+c]
         roots = np.roots(coefficients)
         roots = roots.tolist()
 
+        #check roots for imaginary part: if yes --> unsteady otherwise steady
         if roots[0].imag == 0 and roots[1].imag == 0:
             root_steady.append(roots)
             a_steady.append(alpha)       
@@ -31,6 +41,10 @@ def drawDiagram(a_low, a_high, a, b, c):
     return a_steady, a_unsteady, root_steady, root_unsteady
 
 
+"""
+Call function for different dynamical systems and alpha values as stated
+in worksheet:
+"""
 # dx = a - x^2
 a_steady, a_unsteady, root_steady, root_unsteady = drawDiagram(-1, 1, -1, 0, 0)
 plt.plot(a_steady,root_steady[:,0],label = "steady state", color = 'b')

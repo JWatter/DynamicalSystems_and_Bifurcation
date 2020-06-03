@@ -2,7 +2,8 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import numpy as np
 
-# plot phase diagram for Andronov-Hopf bifurcation
+# plot phase diagram for Andronov-Hopf bifurcation. Input similar to task 1
+# but equation differ (dx1, dx2)
 def plotPhaseDiagram(alpha, x1, x2):
     X1, X2 = np.meshgrid(x1, x2)
     # Andronov Hopf equations
@@ -18,6 +19,11 @@ def plotPhaseDiagram(alpha, x1, x2):
 
 # compute orbits with alpha=1
 def orbit(start, delta=0.1):
+    """
+    Plots 2 orbits of the Andronov-Hopf system for given starting points.
+    Uses explicit Euler method with time step of delta = 0.1 (can be adjusted
+    to be set even smaller)
+    """
     orbit = np.empty((2, 100+1)) # save with time step
     orbit[:, 0] = start
     for i in range(0, 100):
@@ -43,8 +49,12 @@ def orbit(start, delta=0.1):
     plt.legend()
     plt.show()
 
-# visualize cusp bifurcation (a1, a2, x) where a1+a2*x-x^3=0
+
 def plotCusp():
+    """
+    Visualize bifurcation surface of cusp bifurcation (a1, a2, x) in 3D plot
+    where where a1+a2*x-x^3=0
+    """
     x = np.linspace(-10, 10, 100)
     a2 = np.linspace(-1, 1, 100)
     x, a2 = np.meshgrid(x, a2)

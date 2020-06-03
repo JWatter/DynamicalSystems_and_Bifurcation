@@ -72,7 +72,7 @@ plt.show()
 #Analysis
 def traj_dist(x1, y1, z1, x2, y2, z2):
     """
-    calculates euclidean distance of 2 vectors in 3d (evaluated as array)
+    Calculates euclidean distance of 2 vectors in 3d (evaluated as array)
     here it can be interpreted as the distance of our 2 trajectories.
     returns index (=timestep) where distance is initially >= 1
     """
@@ -80,4 +80,17 @@ def traj_dist(x1, y1, z1, x2, y2, z2):
     indices, = np.where(dist >= 1)
     return indices[0]
 
+def traj_dist1(x1, y1, z1, x2, y2, z2):
+    """
+    Calculates euclidean distance of 2 vectors in 3d (evaluated as array)
+    here it can be interpreted as the distance of our 2 trajectories.
+    returns array which shows the difference for each two corresponding points
+    of the trajectories
+    """
+    dist = np.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
+    return dist
+
+# timestep where difference of the 2 trajectories becomes > 1
 iteration_t = traj_dist(sol1.y[0], sol1.y[1], sol1.y[2], sol2.y[0], sol2.y[1], sol2.y[2])
+# calculate difference between the two trajectories for rho = 0.5
+iteration_t1 = traj_dist1(sol3.y[0], sol3.y[1], sol3.y[2], sol4.y[0], sol4.y[1], sol4.y[2])

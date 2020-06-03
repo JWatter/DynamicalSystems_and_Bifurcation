@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 import math
 
 def drawPhase(alpha, x1, x2):
+    """
+    Function to plot phase potrait for given parameter alpha
+    and 2D state space (x1, x2)  
+    """
     X1, X2 = np.meshgrid(x1, x2)
     dx1 = (alpha**2)*X1 + (2*alpha)*X2
     dx2 = (-alpha**2)*X1 + (-alpha)*X2
